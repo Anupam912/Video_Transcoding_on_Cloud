@@ -1,0 +1,49 @@
+service: video-processing-service
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-west-2
+
+functions:
+  uploadVideo:
+    handler: aws/uploadVideo.handler
+    events:
+      - http:
+          path: upload
+          method: post
+
+  transcodeVideo:
+    handler: aws/transcodeVideo.handler
+    events:
+      - http:
+          path: transcode
+          method: post
+
+  analyzeVideo:
+    handler: aws/analyzeVideo.handler
+    events:
+      - http:
+          path: analyze
+          method: post
+
+  generateThumbnail:
+    handler: aws/generateThumbnail.handler
+    events:
+      - http:
+          path: thumbnail
+          method: post
+
+  verifyToken:
+    handler: aws/verifyToken.handler
+    events:
+      - http:
+          path: verify
+          method: post
+
+  notifyUser:
+    handler: aws/notifyUser.handler
+    events:
+      - http:
+          path: notify
+          method: post

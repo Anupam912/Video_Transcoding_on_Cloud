@@ -1,0 +1,36 @@
+# ci-cd/google-cloudbuild.yml
+steps:
+  # Checkout the code from the repository
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://source.developers.google.com/p/${_PROJECT_ID}/r/${_REPO_NAME}']
+
+  # Install dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
+  # Run tests
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['test']
+
+  # Build the application
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+
+  # Deploy to Google Cloud Functions
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [
+        'functions',
+        'deploy',
+        'video-transcoding-service',
+        '--runtime',
+        'nodejs14',
+        '--trigger-http',
+        '--region',
+        'us-central1',
+      ]
+timeout: '1600s'
+
+substitutions:
+  _PROJECT_ID: 'your-gcp-project-id'
+  _REPO_NAME: 'video-transcoding-service'
