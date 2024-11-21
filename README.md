@@ -23,7 +23,7 @@ The Video Transcoding Service is a cloud-agnostic serverless application that pr
 - A code repository on GitHub (or similar service) for CI/CD pipelines
 
 ```bash
-git clone https://github.com/yourusername/video-transcoding-service.git
+git clone https://github.com/Anupam912/Video_Transcoding_on_Cloud.git
 cd video-transcoding-service
 npm install
 ```
